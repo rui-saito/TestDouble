@@ -6,7 +6,7 @@ import org.junit.jupiter.api.Test
 class MissileLauncherTests {
 
 	@Test
-	fun testLauncher() {
+	fun testExample() {
 		//val launcher = MissileLauncher()
 		//launcher.launchMissile(missile, launchCode)
 		assertEquals(1, 2)
