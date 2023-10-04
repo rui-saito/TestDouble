@@ -24,20 +24,36 @@ class MissileLauncherTests {
 		val missile = SpyMissile()
 		val launchCode = StubLaunchCodeIsTrue()
 		launcher.launchMissile(missile,launchCode)
-		assertEquals(missile.isCalled,true)
+		assertEquals(missile.isLaunchCalled,true)
 	}
 
 	@Test
-	fun isExpiredがtrueならisSignの値に関わらずlaunchを呼ばない(){
+	fun isExpiredがtrueならisSignの値に関わらずlaunchを呼ばずdisableを呼ぶ(){
 		val launcher = MissileLauncher()
-		val missile = SpyMissile()
+		val missile1 = MockMissile()
+		val missile2 = MockMissile()
 		val launchCode1 = StubLaunchCodeIsExpiredTrueAndIsSignedTrue()
 		val launchCode2 = StubLaunchCodeIsExpiredTrueAndIsSignedFalse()
-		launcher.launchMissile(missile,launchCode1)
-		assertEquals(missile.isCalled,false)
-		launcher.launchMissile(missile,launchCode2)
-		assertEquals(missile.isCalled,false)
+		launcher.launchMissile(missile1,launchCode1)
+		missile1.checkDisableCalledAndLaunchNotCalled()
+
+		launcher.launchMissile(missile2,launchCode2)
+		missile2.checkDisableCalledAndLaunchNotCalled()
 	}
 
+	@Test
+	fun isSignedがfalseならdisableを呼んでlaunchを呼ばない(){
+		val launcher = MissileLauncher()
+		val missile1 = MockMissile()
+		val missile2 = MockMissile()
+		val launchCode1 = StubLaunchCodeIsExpiredFalseAndIsSignedFalse()
+		val launchCode2 = StubLaunchCodeIsExpiredTrueAndIsSignedFalse()
+		launcher.launchMissile(missile1,launchCode1)
+		missile1.checkDisableCalledAndLaunchNotCalled()
 
+		launcher.launchMissile(missile2,launchCode2)
+		missile2.checkDisableCalledAndLaunchNotCalled()
+
+
+	}
 }

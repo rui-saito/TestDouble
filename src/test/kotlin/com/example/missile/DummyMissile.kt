@@ -6,4 +6,8 @@ class DummyMissile:Missile {
     override fun launch() {
         throw Exception()
     }
+
+    override fun disable()
+    {
+    }
 }

@@ -35,3 +35,12 @@ class StubLaunchCodeIsExpiredTrueAndIsSignedFalse:LaunchCode{
         return true
     }
 }
+
+class StubLaunchCodeIsExpiredFalseAndIsSignedFalse:LaunchCode{
+    override fun isSigned(): Boolean {
+        return false
+    }
+    override fun isExpired(): Boolean {
+        return false
+    }
+}
